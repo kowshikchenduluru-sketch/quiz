@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A True Fan — a cricket quiz game.">
+<title>A True Fan | Cricket Quiz</title>
+<style>
+:root{--bg:#080d1b;--panel:#111a2e;--panel2:#17233c;--line:#293957;--text:#f4f7ff;--muted:#a8b5ce;--cyan:#55e6d0;--gold:#ffd166;--pink:#ff6b9a;--green:#5ee0a0}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 15% 10%,#182b4a 0,transparent 35%),radial-gradient(circle at 90% 80%,#20204a 0,transparent 32%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;display:flex;align-items:center;justify-content:center;padding:24px}
+.app{width:min(760px,100%)}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:12px}.brand{font-size:13px;letter-spacing:.2em;color:var(--cyan);font-weight:800}.pill{border:1px solid var(--line);color:var(--muted);padding:7px 12px;border-radius:99px;font-size:12px}
+.card{background:linear-gradient(160deg,rgba(22,34,59,.97),rgba(12,19,35,.97));border:1px solid var(--line);border-radius:24px;padding:clamp(22px,5vw,42px);box-shadow:0 24px 80px #0008}
+.hero{text-align:center}.ball{width:76px;height:76px;border-radius:50%;margin:0 auto 18px;background:radial-gradient(circle at 30% 25%,#ff9bb2,#e83e62 55%,#8c1638);box-shadow:inset -8px -8px 15px #420b22,0 12px 35px #e83e6244;position:relative}.ball:before,.ball:after{content:"";position:absolute;width:2px;height:54px;background:#ffd4dc;top:11px;left:29px;transform:rotate(27deg);border-radius:4px}.ball:after{left:43px}
+h1{font-size:clamp(36px,8vw,58px);line-height:1;margin:8px 0 10px;letter-spacing:-.05em}.accent{color:var(--cyan)}.subtitle{color:var(--muted);margin:0 auto 26px;max-width:470px;line-height:1.6}.stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:20px 0 26px}.stat{background:#0b1426;border:1px solid var(--line);border-radius:13px;padding:10px 15px;min-width:110px}.stat strong{display:block;font-size:19px}.stat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+button{font:inherit;cursor:pointer;border:0}.primary{background:linear-gradient(100deg,var(--cyan),#72b9ff);color:#071322;font-weight:900;padding:15px 24px;border-radius:13px;min-width:190px;box-shadow:0 8px 24px #55e6d033;transition:transform .15s,filter .15s}.primary:hover{transform:translateY(-2px);filter:brightness(1.08)}.ghost{background:#17233c;color:var(--text);border:1px solid var(--line);padding:12px 16px;border-radius:12px}
+.hidden{display:none!important}.qhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.qcount{color:var(--cyan);font-weight:800;font-size:13px;letter-spacing:.08em}.timer{background:#291b2b;border:1px solid #69304d;color:#ff9ab6;border-radius:12px;padding:9px 13px;font-weight:900;font-variant-numeric:tabular-nums}.progress{height:7px;background:#0a1222;border-radius:99px;overflow:hidden;margin-bottom:28px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),#7ab7ff);transition:width .25s}
+.question{font-size:clamp(22px,4vw,30px);line-height:1.3;margin:0 0 24px}.options{display:grid;gap:12px}.option{display:flex;align-items:center;gap:13px;text-align:left;width:100%;padding:15px 16px;border-radius:14px;background:#101b30;color:var(--text);border:1px solid #2a3a59;transition:.15s}.option:hover:not(:disabled){border-color:var(--cyan);background:#172842;transform:translateY(-1px)}.letter{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:#263652;color:var(--cyan);font-weight:900;flex-shrink:0}.option.correct{border-color:var(--green);background:#123329}.option.wrong{border-color:var(--pink);background:#3a1c2d}.option:disabled{cursor:default;opacity:1}.feedback{margin-top:18px;padding:14px 16px;border-radius:13px;background:#0c1729;border:1px solid var(--line);color:var(--muted);line-height:1.5}.feedback.good{border-color:#2b805f;color:#b5f4d4}.feedback.bad{border-color:#8d3858;color:#ffd0df}.bottom{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px}.scoreline{color:var(--muted);font-size:13px}.result{text-align:center}.bigscore{font-size:clamp(52px,12vw,78px);font-weight:950;letter-spacing:-.06em;color:var(--cyan);margin:12px 0}.result h2{font-size:30px;margin:6px 0}.nameinput{display:block;width:min(330px,100%);margin:18px auto 12px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#0b1426;color:white;font:inherit}.leader{margin:26px auto 0;max-width:420px;text-align:left}.leader h3{font-size:14px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}.leader ol{padding-left:24px;color:var(--muted);line-height:1.9}.leader li span{float:right;color:var(--text);font-weight:800}.footer{text-align:center;color:#7585a2;font-size:11px;margin-top:16px;letter-spacing:.13em}
+@media(max-width:480px){body{padding:12px}.card{border-radius:19px}.top{margin:4px 4px 14px}.bottom{align-items:stretch;flex-direction:column}.bottom button{width:100%}.stat{min-width:95px}}
+</style>
+</head>
+<body>
+<main class="app">
+  <div class="top"><div class="brand">🏏 SKY STUDIOS</div><div class="pill">CRICKET CHALLENGE</div></div>
+  <section class="card hero" id="home">
+    <div class="ball"></div>
+    <div class="brand">THE ULTIMATE CRICKET QUIZ</div>
+    <h1>A TRUE <span class="accent">FAN</span></h1>
+    <p class="subtitle">Think you know cricket? Prove it. Take on 10 questions, beat the clock, and put your cricket knowledge to the test.</p>
+    <div class="stats">
+      <div class="stat"><strong>10</strong><span>Questions</span></div>
+      <div class="stat"><strong>15 sec</strong><span>Per question</span></div>
+      <div class="stat"><strong>100</strong><span>Max points</span></div>
+    </div>
+    <button class="primary" id="startBtn">START QUIZ →</button>
+  </section>
+
+  <section class="card hidden" id="game">
+    <div class="qhead"><div class="qcount" id="qcount">QUESTION 1 / 10</div><div class="timer" id="timer">⏱ 15s</div></div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <h2 class="question" id="question"></h2>
+    <div class="options" id="options"></div>
+    <div class="feedback hidden" id="feedback" aria-live="polite"></div>
+    <div class="bottom"><div class="scoreline" id="scoreline">SCORE: 0</div><button class="primary hidden" id="nextBtn">NEXT QUESTION →</button></div>
+  </section>
+
+  <section class="card result hidden" id="result">
+    <div class="brand">YOUR FINAL SCORE</div>
+    <div class="bigscore" id="finalScore">0/100</div>
+    <h2 id="resultTitle">Good game!</h2>
+    <p class="subtitle" id="resultText"></p>
+    <input class="nameinput" id="playerName" maxlength="18" placeholder="Enter your name for the leaderboard" aria-label="Your name">
+    <button class="primary" id="saveBtn">SAVE MY SCORE</button>
+    <div class="leader" id="leaderboard"><h3>🏆 Top Scores on This Device</h3><ol id="leaderList"></ol></div>
+    <div style="margin-top:24px"><button class="ghost" id="againBtn">↻ PLAY AGAIN</button></div>
+  </section>
+  <div class="footer">A GAME MADE BY SKY · PLAY FAIR · HAVE FUN</div>
+</main>
+<script>
+const questions = [
+ {q:"Which country won the first men's Cricket World Cup in 1975?",o:["Australia","West Indies","England","India"],a:1,e:"West Indies defeated Australia in the 1975 final at Lord's."},
+ {q:"How many legal deliveries are there in a standard over?",o:["5","6","8","10"],a:1,e:"A standard over consists of six legal deliveries. Wides and no-balls do not count toward the six."},
+ {q:"What does LBW stand for?",o:["Leg Before Wicket","Line Behind Wicket","Leg By Wide","Last Ball Win"],a:0,e:"LBW means Leg Before Wicket, a mode of dismissal governed by specific conditions."},
+ {q:"Which player is famously known as the 'Master Blaster'?",o:["Rahul Dravid","MS Dhoni","Sachin Tendulkar","Virender Sehwag"],a:2,e:"Sachin Tendulkar is widely known by the nickname 'Master Blaster'."},
+ {q:"How many players from one team are on the field during normal play?",o:["9","10","11","12"],a:2,e:"A cricket team has 11 players on the field during normal play."},
+ {q:"What is the name of the fielding position directly behind the batter, on the off side?",o:["Fine leg","Slip","Midwicket","Square leg"],a:1,e:"Slip fielders stand behind the batter on the off side to catch edges."},
+ {q:"What is a score of 100 runs by a batter called?",o:["A double","A century","A maiden","A spell"],a:1,e:"Scoring 100 runs in an innings is called a century."},
+ {q:"Which ball is used in traditional men's Test cricket?",o:["White","Pink only","Red","Orange"],a:2,e:"Traditional men's Test matches use a red cricket ball. Some day-night Tests use a pink ball."},
+ {q:"What does a 'maiden over' mean?",o:["An over with no runs conceded","An over with two wickets","An over with six boundaries","An over with no legal balls"],a:0,e:"A maiden over is an over in which the bowler concedes no runs charged to them."},
+ {q:"How many stumps make up a cricket wicket?",o:["2","3","4","6"],a:1,e:"A wicket consists of three vertical stumps with two bails resting on top."}
+];
+let index=0,score=0,timeLeft=15,timer=null,locked=false,answers=[];
+const $=id=>document.getElementById(id);
+function show(id){["home","game","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id))}
+function start(){index=0;score=0;answers=[];show("game");render()}
+function render(){
+ locked=false;timeLeft=15;
+ $("qcount").textContent=`QUESTION ${index+1} / ${questions.length}`;
+ $("bar").style.width=`${index/questions.length*100}%`;
+ $("question").textContent=questions[index].q;
+ $("options").innerHTML="";
+ $("feedback").className="feedback hidden";$("nextBtn").classList.add("hidden");
+ $("scoreline").textContent=`SCORE: ${score}`;
+ questions[index].o.forEach((option,i)=>{
+  const b=document.createElement("button");b.className="option";
+  b.innerHTML=`<span class="letter">${String.fromCharCode(65+i)}</span><span>${option}</span>`;
+  b.addEventListener("click",()=>choose(i,false));$("options").appendChild(b);
+ });
+ updateTimer();clearInterval(timer);timer=setInterval(()=>{timeLeft--;updateTimer();if(timeLeft<=0)choose(-1,true)},1000);
+}
+function updateTimer(){$("timer").textContent=`⏱ ${timeLeft}s`;if(timeLeft<=5)$("timer").style.color="#ff6b9a";else $("timer").style.color="#ff9ab6"}
+function choose(choice,timedOut){
+ if(locked)return;locked=true;clearInterval(timer);
+ const q=questions[index],buttons=[...$("options").querySelectorAll("button")];
+ buttons.forEach((b,i)=>{b.disabled=true;if(i===q.a)b.classList.add("correct");if(i===choice&&choice!==q.a)b.classList.add("wrong")});
+ const correct=choice===q.a;if(correct)score+=10;
+ answers.push(correct);
+ const f=$("feedback");f.className=`feedback ${correct?"good":"bad"}`;
+ f.textContent=timedOut?`Time's up! ${q.e}`:correct?`✓ Correct! ${q.e}`:`Not quite. ${q.e}`;
+ $("scoreline").textContent=`SCORE: ${score}`;
+ $("nextBtn").textContent=index===questions.length-1?"SEE MY RESULT →":"NEXT QUESTION →";
+ $("nextBtn").classList.remove("hidden");
+}
+function finish(){
+ clearInterval(timer);show("result");$("bar").style.width="100%";
+ $("finalScore").textContent=`${score}/100`;
+ let title="Good effort!",msg="Every great cricket fan keeps learning. Have another go and improve your score!";
+ if(score===100){title="LEGENDARY! 🏆";msg="Perfect score! You are a true cricket champion."}
+ else if(score>=70){title="CRICKET CHAMP! 🔥";msg="Brilliant knowledge! You really know your cricket."}
+ else if(score>=40){title="SOLID INNINGS!";msg="Nice work. A little more practice and you'll be unstoppable."}
+ $("resultTitle").textContent=title;$("resultText").textContent=msg;
+ $("playerName").value="";$("saveBtn").disabled=false;$("saveBtn").textContent="SAVE MY SCORE";renderLeaderboard();
+}
+function getScores(){try{return JSON.parse(localStorage.getItem("atruefan_scores")||"[]")}catch(e){return []}}
+function renderLeaderboard(){
+ const list=$("leaderList");list.innerHTML="";const scores=getScores().sort((a,b)=>b.score-a.score).slice(0,5);
+ if(!scores.length){const li=document.createElement("li");li.textContent="No scores yet — be the first!";list.appendChild(li);return}
+ scores.forEach(s=>{const li=document.createElement("li");li.textContent=s.name;const span=document.createElement("span");span.textContent=`${s.score}/100`;li.appendChild(span);list.appendChild(li)});
+}
+$("startBtn").addEventListener("click",start);
+$("nextBtn").addEventListener("click",()=>{if(index<questions.length-1){index++;render()}else finish()});
+$("againBtn").addEventListener("click",()=>show("home"));
+$("saveBtn").addEventListener("click",()=>{
+ const name=$("playerName").value.trim()||"Anonymous";
+ const scores=getScores();scores.push({name,score});localStorage.setItem("atruefan_scores",JSON.stringify(scores.slice(-50)));
+ $("saveBtn").disabled=true;$("saveBtn").textContent="SCORE SAVED ✓";renderLeaderboard();
+});
+</script>
+</body>
+</html>
